@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField';
 import { useAutocomplete } from '@mui/core/AutocompleteUnstyled';
 import { styled } from '@mui/material/styles';
 import { Button } from '@mui/material';
-
+import { useEffect } from 'react';
 
 
 const Label = styled('label')({
@@ -44,12 +44,44 @@ const Listbox = styled('ul')(({ theme }) => ({
 }));
 
 
-export default function BasicSelect() {
+export default function App() {
   const [location, setLocation] = React.useState('');
   const [name, setName] = React.useState('');
   const [purpose, setPurpose] = React.useState('');
   const [days, setDays] = React.useState('');
   const [vaccination, setVaccinations] = React.useState('');
+
+
+  useEffect(() => {
+    fetch("http://localhost:3000/list")
+      .then(res => res.json())
+      .then(
+        (result) => {
+          // setIsLoaded(true);
+          // setItems(result.items);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        // (error) => {
+        //   setIsLoaded(true);
+        //   setError(error);
+        // }
+      )
+  }, [])
+
+  // useEffect(() => {
+  //   fetch("http://127.0.0.1:3000/list")
+  //     .then(res => res.json())
+  //     .then(
+  //       (result) => {
+  //         console.log(result)
+  //         // setIsLoaded(true);
+  //         // setItems(result.items);
+  //       }
+  //     ),
+  // }, []);
+
 
   const handleChange = (event) => {
     setName(event.target.value);
@@ -60,6 +92,7 @@ export default function BasicSelect() {
   };
 
   const sendRequest = (event) => {
+    console.log(location);
     console.log(name);
   };
 
@@ -92,7 +125,7 @@ export default function BasicSelect() {
     
     <Box>
       <FormControl sx={{ m:1, minWidth: 120 }}>
-        <TextField name="name" required id="outlined-basic" label="Name and Surname" onChange={handleChange} variant="outlined" />
+        <TextField name="name" required id="outlined-basic" label="Name and Surname" onChange={(event) => setName(event.target.value)} variant="outlined" />
       </FormControl>
       <FormControl sx={{ m:1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-label">Location</InputLabel>
@@ -102,7 +135,7 @@ export default function BasicSelect() {
           id="demo-simple-select"
           value={location}
           label="Location"
-          onChange={handleChange}
+          onChange={(event) => setLocation(event.target.value)}
         >
           <MenuItem value="kharkov">Kharkov</MenuItem>
           <MenuItem value="dnipro">Dnipro</MenuItem>
@@ -117,7 +150,7 @@ export default function BasicSelect() {
           id="demo-simple-select"
           value={purpose}
           label="Purpose"
-          onChange={handleChange}
+          onChange={(event) => setPurpose(event.target.value)}
         >
           <MenuItem value="business">Business</MenuItem>
           <MenuItem value="personal">Personal</MenuItem>
@@ -131,7 +164,7 @@ export default function BasicSelect() {
           id="demo-simple-select"
           value={days}
           label="Days"
-          onChange={handleChange}
+          onChange={(event) => setDays(event.target.value)}
         >
           <MenuItem value="1">1</MenuItem>
           <MenuItem value="2">2</MenuItem>
@@ -145,7 +178,7 @@ export default function BasicSelect() {
       </FormControl>
       <FormControl sx={{ m:1, minWidth: 120 }}>
         <Label {...getInputLabelProps()}>Preferable Room / Zone</Label>
-        <Input onChange={handleChange} {...getInputProps()}  />
+        <Input {...getInputProps()}  />
       </FormControl>
       {groupedOptions.length > 0 ? (
         <Listbox {...getListboxProps()}>
@@ -162,7 +195,7 @@ export default function BasicSelect() {
           id="demo-simple-select"
           value={vaccination}
           label="Vaccinated ?"
-          onChange={handleChange}
+          onChange={(event) => setVaccinations(event.target.value)}
         >
           <MenuItem value="1">Yes</MenuItem>
           <MenuItem value="0">No</MenuItem>
