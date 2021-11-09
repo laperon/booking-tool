@@ -17,6 +17,33 @@ function Spreeadsheet() {
 
 
     const doc = new GoogleSpreadsheet(SPREADSHEET_ID);
+    
+    const addRequestToOrder = () => {};
+
+    const getCellByRange = async () => {
+        try {
+            await doc.useServiceAccountAuth({
+                client_email: CLIENT_EMAIL,
+                private_key: PRIVATE_KEY,
+            });
+            // loads document properties and worksheets
+            await doc.loadInfo();
+
+            const sheet = doc.sheetsById[SHEET_ID];
+
+            await sheet.loadCells('A1:B6');
+            const cellA1 = sheet.getCell(0, 0);
+            const cellB6 = sheet.getCellByA1('B6');
+
+            // Get value
+            console.log(cellB6.value);
+        
+
+
+        } catch (e) {
+            console.error('Error: ', e);
+        }
+    } 
 
     const appendSpreadsheet = async (row) => {
         try {
@@ -30,6 +57,13 @@ function Spreeadsheet() {
             const sheet = doc.sheetsById[SHEET_ID];
             // await sheet.clear();
             const result = await sheet.addRow(row);
+            // const getRow = sheet.getCellByA1('A1');
+            // const loadCells = await sheet.loadCells('A2:B7');
+
+            // const a1 = sheet.getCell(0, 0); // access cells using a zero-based index
+
+
+            // console.log(loadCells);
 
         } catch (e) {
             console.error('Error: ', e);
@@ -37,9 +71,10 @@ function Spreeadsheet() {
     };
 
 
-    const newRow = { Name: "new name 222", Value: "new value" };
+    getCellByRange();
 
-    appendSpreadsheet(newRow);
+    // const newRow = { Name: "new name 222", Value: "new value" };
+    // appendSpreadsheet(newRow);
 
     return true;
 }
