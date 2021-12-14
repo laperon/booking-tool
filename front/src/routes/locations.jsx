@@ -1,4 +1,5 @@
 import React from "react";
+
 import LocationList from "../locations/LocationList";
 
 export default function Locations() {
