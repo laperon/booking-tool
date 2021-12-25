@@ -1,191 +1,108 @@
-import React from 'react';
-import Box from '@mui/material/Box';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
-import { useAutocomplete } from '@mui/core/AutocompleteUnstyled';
-import { styled } from '@mui/material/styles';
-import { Button } from '@mui/material'; 
-import { useEffect } from 'react';
-
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const top100Films = [
-  { title: 'The Shawshank Redemption', year: 1994 },
-  { title: 'The Godfather', year: 1972 },
-  { title: 'The Godfather: Part II', year: 1974 },
-  { title: 'The Dark Knight', year: 2008 },
-  { title: '12 Angry Men', year: 1957 },
-  { title: "Schindler's List", year: 1993 },
-  { title: 'Pulp Fiction', year: 1994 },
-];
-
-const sendRequest = () => {
-  alert(12);
-
-  const requestOptions = {
-    method: 'POST',
-    // headers: { 'Content-Type': 'application/json' },
-    body: { first_name: 'Hello from React', second_name: 'i Am here' }
-  };
-
-
-  fetch('http://localhost:3003/booking', {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      first_name: 'yourValue',
-      second_name: 'yourOtherValue',
-    })
-  })
-}
-
-const Label = styled('label')({
-  display: 'block',
-});
-
-const Input = styled('input')(({ theme }) => ({
-  width: 200,
-  backgroundColor: theme.palette.background.paper,
-  color: theme.palette.getContrastText(theme.palette.background.paper),
-}));
-
-const Listbox = styled('ul')(({ theme }) => ({
-  // width: 200,
-  margin: 0,
-  padding: 0,
-  zIndex: 1,
-  position: 'absolute',
-  listStyle: 'none',
-  backgroundColor: theme.palette.background.paper,
-  overflow: 'auto',
-  maxHeight: 200,
-  border: '1px solid rgba(0,0,0,.25)',
-  '& li[data-focus="true"]': {
-    backgroundColor: '#4a8df6',
-    color: 'white',
-    cursor: 'pointer',
-  },
-  '& li:active': {
-    backgroundColor: '#2977f5',
-    color: 'white',
-  },
-}));
+import React, { useState } from "react";
+import styles from '../assets/style.css'
 
 function BookingForm() {
 
-  const {
-    getRootProps,
-    getInputLabelProps,
-    getInputProps,
-    getListboxProps,
-    getOptionProps,
-    groupedOptions,
-  } = useAutocomplete({
-    id: 'use-autocomplete-demo',
-    options: top100Films,
-    getOptionLabel: (option) => {
-      return option.title;
-    } ,
-  });
-
-  const [location, setLocation] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [purpose, setPurpose] = React.useState('');
-  const [days, setDays] = React.useState('');
-  const [vaccination, setVaccinations] = React.useState('');
+    const [name, setName] = useState('');
+    const [location, setLocation] = useState('');
+    const [purpose, setPurpose] = useState('');
+    const [days, setDays] = useState('');
+    const [first_day, setFirstDays] = useState('');
+    const [room, setRoom] = useState('');
+    const [vaccinated, setVaccinated] = useState('');
+    const [wishes, setWishes] = useState('');
 
 
-  return(
-    <Box>
-      <FormControl sx={{ m:1, minWidth: 120 }}>
-        <TextField name="name" required id="outlined-basic" label="Name and Surname" onChange={(event) => setName(event.target.value)} variant="outlined" />
-      </FormControl>
-      <FormControl sx={{ m:1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-label">Location</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          name="location"
-          id="demo-simple-select"
-          value={location}
-          label="Location"
-          onChange={(event) => setLocation(event.target.value)}
-        >
-          <MenuItem value="kharkov">Kharkov</MenuItem>
-          <MenuItem value="dnipro">Dnipro</MenuItem>
-          <MenuItem value="kiev">Kiev</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m:1, minWidth: 220 }}>
-        <InputLabel required id="demo-simple-select-label">Purpose of WFO</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          name="purpose"
-          id="demo-simple-select"
-          value={purpose}
-          label="Purpose"
-          onChange={(event) => setPurpose(event.target.value)}
-        >
-          <MenuItem value="business">Business</MenuItem>
-          <MenuItem value="personal">Personal</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m:1, minWidth: 220 }}>
-        <InputLabel required id="demo-simple-select-label">How many days do you want to WFO</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          name="days"
-          id="demo-simple-select"
-          value={days}
-          label="Days"
-          onChange={(event) => setDays(event.target.value)}
-        >
-          <MenuItem value="1">1</MenuItem>
-          <MenuItem value="2">2</MenuItem>
-          <MenuItem value="3">3</MenuItem>
-          <MenuItem value="4">4</MenuItem>
-          <MenuItem value="5">5</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m:1, minWidth: 120 }}>
-        <TextField name="date" required id="outlined-basic" label="Date" variant="outlined" />
-      </FormControl>
-      <FormControl sx={{ m:1, minWidth: 120 }}>
-        <Label {...getInputLabelProps()}>Preferable Room / Zone</Label>
-        <Input {...getInputProps()}  />
-      </FormControl>
-      {groupedOptions.length > 0 ? (
-        <Listbox {...getListboxProps()}>
-          {groupedOptions.map((option, index) => (
-            <li {...getOptionProps({ option, index })}>{option.title}</li>
-          ))}
-        </Listbox>
-      ) : null}
-      <FormControl sx={{ m:1, minWidth: 220 }}>
-        <InputLabel required id="demo-simple-select-label">Vaccinated ?</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          name="vaccination"
-          id="demo-simple-select"
-          value={vaccination}
-          label="Vaccinated ?"
-          onChange={(event) => setVaccinations(event.target.value)}
-        >
-          <MenuItem value="1">Yes</MenuItem>
-          <MenuItem value="0">No</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl sx={{ m:1, minWidth: 120 }}>
-        <TextField name="info" required id="outlined-basic" label="Additional wishes (specific equipment, room for 1 person etc.)" variant="outlined" />
-      </FormControl>
-      <br />
-      <Button onClick={sendRequest} variant="outlined">Send Request</Button>
-    </Box>
-    );
-} 
+    function handleSubmit(event) {
+        event.preventDefault()
+
+        console.log('name' , name);
+        console.log('location' , location);
+        console.log('purpose' , purpose);
+        console.log('days' , days);
+        console.log('fist_day' , first_day);
+        console.log('room' , room);
+        console.log('vaccinated' , vaccinated);
+        
+        console.log('wishes' , wishes);        
+    }
+
+    return(
+        <form onSubmit={handleSubmit} className="booking-form">
+            <div>
+                <label htmlFor="name">Name and Surname<span className="red">*</span></label>
+                <div>
+                    <input required id="name" type="text" onChange={(event) => setName(event.target.value)} placeholder="Name and Surname" />
+                </div>
+            </div>
+            <div>
+                <label htmlFor="location">Location<span className="red">*</span></label>
+                <div>
+                    <select required onChange={(event) => setLocation(event.target.value)} placeholderid="location">
+                        <option value="kh-monte-plaza">KH Monte Plaza</option>
+                        <option value="kh-summer-co-zone">KH Summer Co-Zone</option>
+                        <option value="kyiv">Kyiv</option>
+                        <option value="dnipro">Dnipro</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label htmlFor="purpose">Purpose of WFO<span className="red">*</span></label>
+                <div>
+                    <select onChange={(event)=>setPurpose(event.target.value)} name="purpose" id="purpose">
+                        <option value="0" disabled>Choose</option>
+                        <option value="business">Business reasons</option>
+                        <option value="personal">Personal reasons</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label htmlFor="days">How many days do you want to WFO<span className="red">*</span></label>
+                <div>
+                    <select onChange={(event) => setDays(event.target.value)} name="days">
+                        <option value="0" disabled>Choose</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label htmlFor="first-day">
+                    First day of WFO<span className="red">*</span>
+                </label>
+                <div>
+                    <input onChange={(event) => setFirstDays(event.target.value)} name="first-day" type="date" placeholder="dd.mm.yy" />
+                </div>
+            </div>
+            <div>
+                <label htmlFor="room">
+                    Preferable Room / Zone
+                </label>
+                <div>
+                    <input onChange={(event) => setRoom(event.target.value)} name="room" type="text" placeholder="Your answer" />
+                </div>
+            </div>
+            <div>
+                <label htmlFor="vaccinated">I am fully vaccinated<span className="red">*</span></label>
+                <div>
+                    <div><input onChange={(event) => setVaccinated(event.target.value)} name="vaccinated" id="vaccinated" type="radio" value="Yes" /> Yes</div>
+                    <div><input onChange={(event) => setVaccinated(event.target.value)} name="vaccinated" id="vaccinated" type="radio" value="No" /> No</div>
+                </div>
+            </div>
+            <div>
+                <label htmlFor="wishes">
+                    Additional wishes (specific equipment, room for 1 person etc.)
+                </label>
+                <div>
+                    <input type="text" onChange={(event) => setWishes(event.target.value)} name="wishes" placeholder="Your answer" />
+                </div>
+            </div>
+            <input type="submit" value="Send request"/>
+        </form>
+    )
+}
 
 export default BookingForm
