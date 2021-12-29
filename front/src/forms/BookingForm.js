@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styles from '../assets/style.css'
 
-function BookingForm() {
+function BookingForm({ checkStatus }) {
+
+    const classes = [];
+
+    const [inputClass , setInputClass] = useState('');
+    const [flag, setFlag] = useState();
 
     const [name, setName] = useState('');
     const [location, setLocation] = useState('');
@@ -12,19 +17,35 @@ function BookingForm() {
     const [vaccinated, setVaccinated] = useState('');
     const [wishes, setWishes] = useState('');
 
+    useEffect(function () {
+        // console.log('Booking', status);
+    })
+
+    function sendDataToDatabase() {
+        fetch('http://localhost:3005/booking', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name_surname: name,
+                location: location,
+                purpose: purpose,
+                days: days,
+                first_day: first_day,
+                room: room,
+                vaccinated: vaccinated,
+                wishes: wishes,
+            })
+        })
+    }
+
 
     function handleSubmit(event) {
-        event.preventDefault()
-
-        console.log('name' , name);
-        console.log('location' , location);
-        console.log('purpose' , purpose);
-        console.log('days' , days);
-        console.log('fist_day' , first_day);
-        console.log('room' , room);
-        console.log('vaccinated' , vaccinated);
-        
-        console.log('wishes' , wishes);        
+        event.preventDefault();
+        sendDataToDatabase();
+        checkStatus(true)
     }
 
     return(

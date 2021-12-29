@@ -1,3 +1,7 @@
 .booking-form .red {
     color: red;
 }
+
+.booking-form .error {
+    border: 1px solid red;
+}
