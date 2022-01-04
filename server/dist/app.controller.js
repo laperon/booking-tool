@@ -17,7 +17,7 @@ let AppController = class AppController {
         this.appService = appService;
     }
     getHello() {
-        return "hello nest js -- 11112222";
+        return "hello nest js";
     }
 };
 __decorate([

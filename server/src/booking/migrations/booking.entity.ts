@@ -6,11 +6,23 @@ export class Booking {
   id:number;
 
   @Column()
-  first_name: string;
+  name_surname: string;
 
   @Column()
-  second_name: string;
+  location: string;
 
-  @Column({ default: true })
-  isActive: boolean;
+  @Column()
+  days: number;
+
+  @Column()
+  first_day: string;
+
+  @Column()
+  room: string;
+
+  @Column()
+  vaccinated: boolean;
+
+  @Column()
+  wishes: string;
 }

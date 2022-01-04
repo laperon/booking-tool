@@ -2,11 +2,7 @@ import { Module } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Booking } from "./booking/booking.entity";
-
-//MongoDB
-import { ProductsModule } from "./products/products.module";
-import { MongooseModule } from "@nestjs/mongoose";
+import { Booking } from "./booking/migrations/booking.entity";
 
 import { BookingController } from './booking/booking.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';

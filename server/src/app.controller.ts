@@ -7,6 +7,6 @@ export class AppController {
 
   @Get()
   getHello(): string {
-    return "hello nest js -- 11112222";
+    return "hello nest js";
   }
 }

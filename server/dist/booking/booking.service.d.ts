@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Booking } from './booking.entity';
+import { Booking } from './migrations/booking.entity';
 import { Connection } from "typeorm";
 import { CreateBookingDto } from "./dto/create-booking.dto";
 export declare class BookingService {

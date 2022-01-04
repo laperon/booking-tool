@@ -1,4 +1,9 @@
 export declare class CreateBookingDto {
-    readonly first_name: string;
-    readonly second_name: string;
+    readonly name_surname: string;
+    readonly location: string;
+    readonly days: number;
+    readonly first_day: string;
+    readonly room: string;
+    readonly vaccinated: boolean;
+    readonly wishes: string;
 }

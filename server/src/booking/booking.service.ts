@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Entity, Repository } from "typeorm";
-import { Booking } from './booking.entity';
+import { Booking } from './migrations/booking.entity';
 import { Connection } from "typeorm";
 import { CreateProductDto } from "../products/dto/create-product.dto";
 import { Product } from "../products/schemas/product.schema";
@@ -18,16 +18,6 @@ export class BookingService {
   findAll(): Promise<Booking[]> {
     return this.bookingRepository.find();
   }
-
-  // async create(booking: Booking): Promise<Booking> {
-  //   const record = new this..create();
-  //
-  // }
-
-  // async create(productDto: CreateProductDto): Promise<Product>  {
-  //   const newProduct = new this.productModel(productDto)
-  //   return newProduct.save()
-  // }
 
   async create(bookingDto: CreateBookingDto): Promise<Booking>{
     return this.bookingRepository.save(bookingDto)

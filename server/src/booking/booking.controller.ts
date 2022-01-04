@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from "@nestjs/common";
 import { BookingService } from "./booking.service";
-import { Booking } from "./booking.entity";
+import { Booking } from "./migrations/booking.entity";
 import { CreateProductDto } from "../products/dto/create-product.dto";
 import { Product } from "../products/schemas/product.schema";
 import { CreateBookingDto } from "./dto/create-booking.dto";

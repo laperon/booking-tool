@@ -1,5 +1,5 @@
 import { BookingService } from "./booking.service";
-import { Booking } from "./booking.entity";
+import { Booking } from "./migrations/booking.entity";
 import { CreateBookingDto } from "./dto/create-booking.dto";
 export declare class BookingController {
     private bookingService;

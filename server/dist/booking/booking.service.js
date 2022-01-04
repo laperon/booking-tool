@@ -16,7 +16,7 @@ exports.BookingService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const booking_entity_1 = require("./booking.entity");
+const booking_entity_1 = require("./migrations/booking.entity");
 const typeorm_3 = require("typeorm");
 let BookingService = class BookingService {
     constructor(bookingRepository, connection) {

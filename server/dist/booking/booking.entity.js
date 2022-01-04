@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Booking = void 0;
+exports.Test = exports.Booking = void 0;
 const typeorm_1 = require("typeorm");
 let Booking = class Booking {
 };
@@ -29,8 +29,26 @@ __decorate([
     (0, typeorm_1.Column)({ default: true }),
     __metadata("design:type", Boolean)
 ], Booking.prototype, "isActive", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Booking.prototype, "reee", void 0);
 Booking = __decorate([
     (0, typeorm_1.Entity)()
 ], Booking);
 exports.Booking = Booking;
+let Test = class Test {
+};
+__decorate([
+    (0, typeorm_1.PrimaryGeneratedColumn)(),
+    __metadata("design:type", Number)
+], Test.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", String)
+], Test.prototype, "test", void 0);
+Test = __decorate([
+    (0, typeorm_1.Entity)()
+], Test);
+exports.Test = Test;
 //# sourceMappingURL=booking.entity.js.map
