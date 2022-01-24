@@ -2,24 +2,34 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import OrderItem from "./Orders/OrderItem";
 import OrdersList from "./Orders/OrdersList";
-
-const data = [];
+import EditForm from "../blocks/EditForm";
+import useTestData from "../hooks/useTestData";
 
 const Orders = () => {
+    const data = useTestData();
 
-    const [records, setRecords] = useState(null);
+    function updateRecord (prop){
+        console.log('updateRecord', prop);
+    }
+    function removeRecord (prop) {
+        console.log('removeRecord', prop);
+    }
+    function addRecord(prop) {
+        console.log('addRecord', prop);
+    }
 
-    useEffect(() => {
-        axios.get(`https://jsonplaceholder.typicode.com/users`).then(res=>{
-            setRecords(res.data);
-        })
-    }, []);
+    //@TODO get data from Microservice
+    function getRecords() {}
 
     return (
         <div>
             <h1>Booking List</h1>
-            {records !== null
-                ? <OrdersList records={records} />
+            {data !== null
+                ? <OrdersList
+                    update={updateRecord}
+                    remove={removeRecord}
+                    add={addRecord}
+                    records={data} />
                 : <p>Loading...</p>
             }
 
