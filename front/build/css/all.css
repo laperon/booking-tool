@@ -3014,9 +3014,9 @@
   /*
    * checkbox
    */
-  input[type=checkbox] {
-    display: none;
-  }
+  /*input[type=checkbox] {*/
+  /*  display: none;*/
+  /*}*/
   input[type=checkbox]:not(:checked) + .checkbox-label-text, input[type=checkbox]:checked + .checkbox-label-text {
     position: relative;
     padding-left: 40px;

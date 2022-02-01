@@ -1,10 +1,12 @@
 import React from "react";
 
-const AuthContext = React.createContext({
+const args = {
     authenticated: false,
-    setAuthenticated: (auth) => {
-        console.log('cotnext auth', auth)
+    setAuthenticated: (prop) => {
+        args.authenticated = prop;
     }
-});
+}
+
+const AuthContext = React.createContext(args);
 
 export default AuthContext;

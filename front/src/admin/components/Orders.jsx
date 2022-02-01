@@ -1,15 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from "axios";
 import OrderItem from "./Orders/OrderItem";
 import OrdersList from "./Orders/OrdersList";
 import EditForm from "../blocks/EditForm";
 import useTestData from "../hooks/useTestData";
+import AuthContext from '../context/AuthContext';
 
 const Orders = () => {
+
+    const authenticated = useContext(AuthContext);
     const data = useTestData();
 
-    function updateRecord (prop){
-        console.log('updateRecord', prop);
+    console.log('orders', authenticated.authenticated);
+
+
+    function updateRecord (props){
+        data[props.id-1].status = props.status;
+
+        console.log(data);
     }
     function removeRecord (prop) {
         console.log('removeRecord', prop);
@@ -21,20 +29,25 @@ const Orders = () => {
     //@TODO get data from Microservice
     function getRecords() {}
 
-    return (
-        <div>
-            <h1>Booking List</h1>
-            {data !== null
-                ? <OrdersList
-                    update={updateRecord}
-                    remove={removeRecord}
-                    add={addRecord}
-                    records={data} />
-                : <p>Loading...</p>
-            }
+    const bookingListComponent = <div>
+        <h1>Booking List</h1>
+        {data !== null
+            ? <OrdersList
+                update={updateRecord}
+                remove={removeRecord}
+                add={addRecord}
+                records={data} />
+            : <p>Loading...</p>
+        }
+    </div>
 
-        </div>
-    );
+    console.log('authenticated', authenticated);
+
+    if ( authenticated == true ) {
+        return bookingListComponent
+    }
+
+    return false;
 };
 
 export default Orders;

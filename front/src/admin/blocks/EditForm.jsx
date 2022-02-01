@@ -1,61 +1,91 @@
 import React, {useState} from 'react';
+import cl from  './EditForm.module.css'
 
 const EditForm = ({record, update}) => {
 
-    const [name, setName] = useState();
-    const [username, setUsername] = useState(record.username);
-    const [email, setEmail] = useState(record.email);
+    const [dateTo, setDateTo] = useState(record.date_to);
+    const [dateFrom, setDateFrom] = useState(record.date_from);
+    const [status, setStatus] = useState(record.status)
 
     function onSubmitHandler(e) {
         e.preventDefault();
 
-        setName(e.target.name.value)
-        setUsername(e.target.username.value)
-        setEmail(e.target.email.value)
-
+        setStatus(e.target.status.value);
 
         update({
             id: record.id,
-            name: name,
-            username: username,
-            email: email
-        })
+            status: status
+        });
     }
 
     // Async request, waiting for data
     if (record) {
+
         return (
             //@TODO should in modal
-            <form onSubmit={onSubmitHandler}>
-                <div className="form-group">
-                    ID  <input type="text" name="id" placeholder="id" value={record.id} readOnly/>
-                </div>
-                <div className="form-group">
-                    Name  <input
+            <div className={cl.edit_form}>
+                <form className={cl.form} onSubmit={onSubmitHandler}>
+                    <div className="form-group">
+                        ID  <input type="text" name="id" placeholder="id" value={record.id} readOnly/>
+                    </div>
+                    <div className="form-group">
+                        Name  <input readOnly
                         type="text"
                         name="name"
-                        onChange={(e)=>{setName(e.target.value)}}
                         placeholder="name"
                         defaultValue={record.name} />
-                </div>
-                <div className="form-group">
-                    Username <input
+                    </div>
+                    <div className="form-group">
+                        Username <input readOnly
                         type="text"
                         name="username"
-                        onChange={(e)=>setUsername(e.target.value)}
                         defaultValue={record.username}
                         placeholder="username"/>
-                </div>
-                <div className="form-group">
-                    Email <input
+                    </div>
+                    <div className="form-group">
+                        Email <input readOnly
                         type="text"
                         name="email"
-                        onChange={(e)=>setEmail(e.target.value)}
                         defaultValue={record.email}
                         placeholder="email" />
-                </div>
-                <input type="submit"/>
-            </form>
+                    </div>
+                    <div className="form-group">
+                        Date From <input
+                         type="datetime-local"
+                         name="date_from"
+                         onChange={(e)=>setDateFrom(e.target.value)}
+                         defaultValue={record.date_from}
+                         placeholder="email" />
+                    </div>
+                    <div className="form-group">
+                        Date From <input
+                        type="datetime-local"
+                        name="date_to"
+                        onChange={(e)=>setDateTo(e.target.value)}
+                        defaultValue={record.date_to}
+                        placeholder="email" />
+                    </div>
+                    <div className="form-group">
+                        Status {record.status == true ? 'Approved' : 'Not Approved'}
+                    </div>
+                    <div className="form-group">
+                        <div>
+                            True <input
+                                type="radio"
+                                name="status"
+                                onChange={(e) => e.target.value }
+                                value="true" />
+                            False <input
+                                type="radio"
+                                name="status"
+                                onChange={(e) => e.target.value }
+                                value="false" />
+                        </div>
+
+                    </div>
+                    <input type="submit"/>
+                </form>
+            </div>
         );
     } else {
         return (
