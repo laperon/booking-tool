@@ -11,9 +11,6 @@ const Orders = () => {
     const authenticated = useContext(AuthContext);
     const data = useTestData();
 
-    console.log('orders', authenticated.authenticated);
-
-
     function updateRecord (props){
         data[props.id-1].status = props.status;
 
@@ -40,8 +37,6 @@ const Orders = () => {
             : <p>Loading...</p>
         }
     </div>
-
-    console.log('authenticated', authenticated);
 
     if ( authenticated == true ) {
         return bookingListComponent

@@ -15,33 +15,12 @@ import Orders from "./admin/components/Orders";
 
 export default function App() {
 
-    const [isAuth, setIsAuth] = useState(false);
-
-    const auth = (status) => {
-        setIsAuth(status);
-        console.log( 'isAuth', status );
-    }
-
-    // const [status, setStatus] = React.useState(false)
-    //
-    // console.log('app status here', status);
-    //
-    // function checkStatus(status) {
-    //     setStatus(status);
-    // }
-    //
-    // if (status == true) {
-    //     return <ThankYou />;
-    // } else {
-    //     return <BookingForm checkStatus={checkStatus} />;
-    // }
-
     return (
         <div className="App">
             <Router>
                 <Routes>
                     <Route exact path="/" element={<BookingForm />}/>
-                    <Route exact path="/login" element={<Auth auth={auth} />}/>
+                    <Route exact path="/login" element={<Auth />}/>
                     <Route exact path="/admin" element={<AdminDashboard />}/>
                     <Route exact path="/admin/orders" element={<Orders />}/>
                 </Routes>
