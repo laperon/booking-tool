@@ -5,3 +5,15 @@
 .booking-form .error {
     border: 1px solid red;
 }
+
+.booking-form input {
+    width: 200px;
+    border: 1px solid #787070;
+    border-radius: 5px;
+    height: 30px;
+    padding: 10px;
+}
+
+.booking-form .wrap {
+    display: flex;
+}
